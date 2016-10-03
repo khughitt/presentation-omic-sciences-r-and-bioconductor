@@ -1,0 +1,50 @@
+---
+title: 'Demo 04: Rmarkdown'
+author: "Keith Hughitt"
+date: "September 27, 2016"
+output: html_document
+---
+
+Overview
+--------
+
+- Another really useful library for R is [rmarkdown](http://rmarkdown.rstudio.com/).
+- It is built on top of another library ([knitr](http://yihui.name/knitr/)) and
+  provides an elegant and simple way to generate HTML, PDF, etc. documents
+  which incoporate both **text** and **code**.
+- Great for making sure your analyses are reproducible!
+
+Example Figure
+--------------
+
+```{r, include=FALSE}
+load('data/bodymap_eset.RData')
+
+# call the variable once to ensure that Bioconductor is properly loaded
+bodymap.eset
+```
+
+```{r}
+# generate plot of library sizes
+barplot(colSums(exprs(bodymap.eset)), main="BodyMap Library Sizes",
+        xlab="Sample", ylab="# Reads (total)")
+```
+
+Example Table
+-------------
+
+```{r results='asis'}
+library(knitr)
+dat <- as.data.frame(colSums(exprs(bodymap.eset)))
+colnames(dat) <- 'Number of Reads'
+kable(dat)
+```
+
+Vesion Information
+------------------
+
+```{r}
+sessionInfo()
+```
+
+
